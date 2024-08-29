@@ -1,24 +1,46 @@
 package questoes;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Alternativa {
-    Map<String, Object> perguntas = new HashMap<>();
-    
-    public Alternativa(String letra, String texto, Boolean ehCorreta){
-        perguntas.put("numero", letra);
-        perguntas.put("texto", texto);
-        perguntas.put("correta", ehCorreta);
-        
+    private String letra;
+    private String texto;
+    private Boolean ehCorreta;
+
+    public Alternativa(String letra, String texto, Boolean ehCorreta) {
+        this.letra = letra;
+        this.texto = texto;
+        this.ehCorreta = ehCorreta;
     }
 
-    public Map<String, Object> getPerguntas() {
-        return perguntas;
+    public String getLetra() {
+        return letra;
     }
 
-    public void setPerguntas(Map<String, Object> perguntas) {
-        this.perguntas = perguntas;
+    public void setLetra(String letra) {
+        this.letra = letra;
     }
-    
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public Boolean getEhCorreta() {
+        return ehCorreta;
+    }
+
+    public void setEhCorreta(Boolean ehCorreta) {
+        this.ehCorreta = ehCorreta;
+    }
+    //billu
+    @Override
+    public String toString() {
+        return "Alternativa{" +
+               "letra='" + letra + '\'' +
+               ", texto='" + texto + '\'' +
+               ", ehCorreta=" + ehCorreta +
+               '}';
+    }
 }

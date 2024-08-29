@@ -1,69 +1,66 @@
 package questoes;
 
-public class Pergunta {
-    int id;
-    String perguntaTexto;
-    Alternativa a;
-    Alternativa b;
-    Alternativa c;
-    Alternativa d;
-    Alternativa e;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
-    public Pergunta(int id, String perguntaTexto, 
-            String A_letra, String A_texto, Boolean A_ehCorreta,
-            String B_letra, String B_texto, Boolean B_ehCorreta,
-            String C_letra, String C_texto, Boolean C_ehCorreta,
-            String D_letra, String D_texto, Boolean D_ehCorreta,
-            String E_letra, String E_texto, Boolean E_ehCorreta
-    ){
+public class Pergunta {
+    private int id;
+    private String perguntaTexto;
+    private Map<String, Alternativa> alternativas;
+
+    public Pergunta(int id, String perguntaTexto,
+                    Alternativa a, Alternativa b, Alternativa c,
+                    Alternativa d, Alternativa e) {
         this.id = id;
         this.perguntaTexto = perguntaTexto;
-        this.a = new Alternativa(A_letra, A_texto, A_ehCorreta);
-        this.b = new Alternativa(B_letra, B_texto, B_ehCorreta);
-        this.c = new Alternativa(C_letra, C_texto, C_ehCorreta);
-        this.d = new Alternativa(D_letra, D_texto, D_ehCorreta);
-        this.e = new Alternativa(E_letra, E_texto, E_ehCorreta);
+        this.alternativas = new HashMap<>();
+        alternativas.put("A", a);
+        alternativas.put("B", b);
+        alternativas.put("C", c);
+        alternativas.put("D", d);
+        alternativas.put("E", e);
     }
 
     // Getters
-    public Alternativa getA() {
-        return a;
+    public int getId() {
+        return id;
     }
 
-    public Alternativa getB() {
-        return b;
+    public String getPerguntaTexto() {
+        return perguntaTexto;
     }
 
-    public Alternativa getC() {
-        return c;
+    public Alternativa getAlternativa(String letra) {
+        return alternativas.get(letra.toUpperCase());
     }
 
-    public Alternativa getD() {
-        return d;
+    // Adiciona ou substitui uma alternativa
+    public void setAlternativa(String letra, Alternativa alternativa) {
+        alternativas.put(letra.toUpperCase(), alternativa);
     }
 
-    public Alternativa getE() {
-        return e;
+    // Verifica se uma alternativa é correta
+    public Alternativa getAlternativaCorreta() {
+        for (Alternativa alternativa : alternativas.values()) {
+            if (alternativa.getEhCorreta()) {
+                return alternativa;
+            }
+        }
+        return null; // ou lance uma exceção se preferir
     }
 
-    // Setters
-    public void setA(Alternativa a) {
-        this.a = a;
+    // Getter para o mapa de alternativas, retorna uma cópia não modificável
+    public Map<String, Alternativa> getAlternativas() {
+        return Collections.unmodifiableMap(alternativas);
     }
 
-    public void setB(Alternativa b) {
-        this.b = b;
-    }
-
-    public void setC(Alternativa c) {
-        this.c = c;
-    }
-
-    public void setD(Alternativa d) {
-        this.d = d;
-    }
-
-    public void setE(Alternativa e) {
-        this.e = e;
+    @Override
+    public String toString() {
+        return "Pergunta{" +
+               "id=" + id +
+               ", perguntaTexto='" + perguntaTexto + '\'' +
+               ", alternativas=" + alternativas +
+               '}';
     }
 }

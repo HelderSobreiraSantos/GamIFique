@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Jogo extends JFrame {
-    
+
     private JPanel painelPrincipal;
     private JPanel painelCreditos;
     private JPanel painelPergunta;
@@ -19,7 +19,7 @@ public class Jogo extends JFrame {
     private int perguntaID = 1;
     private int acertos = 0;
     private int erros = 0;
-    
+
     public Jogo() {
         geraPergunta = new GeraPergunta();
         perguntaAtual = geraPergunta.DefinePergunta(perguntaID);
@@ -37,12 +37,22 @@ public class Jogo extends JFrame {
 
         // Criando o painel principal
         painelPrincipal = new JPanel();
-        painelPrincipal.setLayout(new BorderLayout());
+        painelPrincipal.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10); // Espaçamento ao redor dos componentes
 
         // Adicionando o título
         JLabel titulo = new JLabel("GamIFique", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
-        painelPrincipal.add(titulo, BorderLayout.NORTH);
+
+        // Configurando GridBagConstraints para o título
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        painelPrincipal.add(titulo, gbc);
 
         // Criando os botões
         JButton botaoIniciar = new JButton("Iniciar Jogo");
@@ -52,19 +62,22 @@ public class Jogo extends JFrame {
         // Adicionando os botões ao painel em orientação vertical
         JPanel painelBotoes = new JPanel();
         painelBotoes.setLayout(new BoxLayout(painelBotoes, BoxLayout.Y_AXIS));
-        painelBotoes.add(Box.createRigidArea(new Dimension(0, 10)));
+        painelBotoes.add(Box.createRigidArea(new Dimension(0, 10))); // Espaço acima
         painelBotoes.add(botaoIniciar);
-        painelBotoes.add(Box.createRigidArea(new Dimension(0, 10)));
+        painelBotoes.add(Box.createRigidArea(new Dimension(0, 10))); // Espaço entre botões
         painelBotoes.add(botaoCreditos);
-        painelBotoes.add(Box.createRigidArea(new Dimension(0, 10)));
+        painelBotoes.add(Box.createRigidArea(new Dimension(0, 10))); // Espaço entre botões
         painelBotoes.add(botaoSair);
-        painelBotoes.add(Box.createRigidArea(new Dimension(0, 10)));
+        painelBotoes.add(Box.createRigidArea(new Dimension(0, 10))); // Espaço abaixo
 
-        // Criando um painel para centralizar os botões horizontalmente
-        JPanel painelCentral = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        painelCentral.add(painelBotoes);
-
-        painelPrincipal.add(painelCentral, BorderLayout.CENTER);
+        // Configurando GridBagConstraints para os botões
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.8;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        painelPrincipal.add(painelBotoes, gbc);
 
         // Adicionando ações aos botões
         botaoIniciar.addActionListener(new ActionListener() {
@@ -292,7 +305,7 @@ public class Jogo extends JFrame {
         Image imagemRedimensionada = imagem.getScaledInstance(480, 480, Image.SCALE_SMOOTH);
         ImageIcon imagemRedimensionadaIcon = new ImageIcon(imagemRedimensionada);
         JLabel imagemLabel = new JLabel(imagemRedimensionadaIcon);
-        
+
         painelImagemConfirmacao.add(imagemLabel);
         painelImagemConfirmacao.revalidate(); // Revalida o painel para atualizar o layout
         painelImagemConfirmacao.repaint(); // Repinta o painel para garantir a atualização visual
